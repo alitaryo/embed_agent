@@ -1,5 +1,5 @@
 (function () {
-  // Create a custom HTML element 'promptly-app-embed'
+  // Create a custom HTML element
   class EmbedAgent extends HTMLElement {
     constructor() {
       super();
