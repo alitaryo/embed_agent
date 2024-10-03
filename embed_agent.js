@@ -1,85 +1,58 @@
-(function () {
-  // Create a custom HTML element
-  class EmbedAgent extends HTMLElement {
-    constructor() {
-      super();
+(function () {  
+  class EmbedAgent extends HTMLElement {  
+    constructor() {  
+      super();  
 
-      // Get the attributes from the custom element
-      const AppId = this.getAttribute("bbuilder-app-id");
-      const chatBubble = this.getAttribute("chat-bubble");
-      const minWidth = this.getAttribute("min-width");
-      const minHeight = this.getAttribute("min-height");
-      const maxWidth = this.getAttribute("max-width");
-      const maxHeight = this.getAttribute("max-height");
+      const AppId = this.getAttribute("bbuilder-app-id");  
+      const chatBubble = this.getAttribute("chat-bubble");  
 
-      // Create an iframe element
-      const iframe = document.createElement("iframe");
+      const iframe = document.createElement("iframe");  
 
-      // Set the iframe attributes
-      iframe.setAttribute("id", `agent-${AppId}`);
-      iframe.setAttribute(
-        "src",
-        `${this.getAttribute("host") || "https://app.alitahealth.ai/"
-        }/agent/${AppId}`
-      );
-      iframe.setAttribute("width", this.getAttribute("width") || "100%");
-      iframe.setAttribute("height", this.getAttribute("height") || "700");
-      iframe.setAttribute("scrolling", this.getAttribute("scrolling") || "no");
-      iframe.setAttribute(
-        "frameborder",
-        this.getAttribute("frameborder") || "0"
-      );
+      iframe.setAttribute("id", `agent-${AppId}`);  
+      iframe.setAttribute(  
+        "src",  
+        `${this.getAttribute("host") || "https://app.alitahealth.ai/"}/agent/${AppId}`  
+      );  
+      iframe.setAttribute("width", "100%");  
+      iframe.setAttribute("height", "80vh"); // Default height  
+      iframe.setAttribute("scrolling", "no");  
+      iframe.setAttribute("frameborder", "0");  
 
-      if (chatBubble) {
-        iframe.setAttribute(
-          "style",
-          "position: fixed; bottom: 0px; right: 0; z-index: 1000; height: auto; width: auto;"
-        );
-      }
+      if (chatBubble) {  
+        iframe.style.position = 'fixed';  
+        iframe.style.bottom = '0px';  
+        iframe.style.right = '0';  
+        iframe.style.zIndex = '1000';  
+        iframe.style.width = '100%'; // Full width for chat bubble  
+      }  
 
-      // Set the iframe style attribute if it exists
-      if (this.getAttribute("style")) {
-        iframe.setAttribute("style", this.getAttribute("style"));
-      }
+      if (this.getAttribute("style")) {  
+        iframe.style.cssText += this.getAttribute("style");  
+      }  
 
-      // Attach the iframe to the custom element
-      this.appendChild(iframe);
+      this.appendChild(iframe);  
 
-      // Add a listener to the iframe to listen for messages
-      window.addEventListener("message", (event) => {
-        // Assumes iframe is in scope, consider binding iframe from constructor scope if needed
-        const adjustIframeSize = (width, height,) => {
-          let newWidth = width;
-          let newHeight = height;
+      this.updateIframeDimensions(iframe); // Set initial dimensions  
+      window.addEventListener("resize", () => {  
+        this.updateIframeDimensions(iframe);  
+      });  
+    }  
 
-          if (minWidth && newWidth < minWidth) {
-            newWidth = minWidth;
-          }
+    updateIframeDimensions(iframe) {  
+      const viewportWidth = window.innerWidth;  
 
-          if (minHeight && newHeight < minHeight) {
-            newHeight = minHeight;
-          }
+      // Responsive width and height based on screen size  
+      if (viewportWidth < 640) {  
+        // Small screen adjustments  
+        iframe.style.width = "100%";  
+        iframe.style.height = "70vh";  
+      } else {  
+        // Larger screen adjustments  
+        iframe.style.width = "400px";  
+        iframe.style.height = "600px";  
+      }  
+    }  
+  }  
 
-          if (maxWidth && newWidth > maxWidth) {
-            newWidth = maxWidth;
-          }
-
-          if (maxHeight && newHeight > maxHeight) {
-            newHeight = maxHeight;
-          }
-
-          iframe.style.width = newWidth;
-          iframe.style.height = newHeight;
-        };
-
-        if (event.data.type === "openApp") {
-          adjustIframeSize(event.data.width, event.data.height);
-        } else if (event.data.type === "closeApp") {
-          adjustIframeSize(event.data.width, event.data.height);
-        }
-      });
-    }
-  }
-  // Register the custom element
-  customElements.define("embed-agent", EmbedAgent);
+  customElements.define("embed-agent", EmbedAgent);  
 })();
