@@ -1,5 +1,5 @@
 (function () {
-  // Create a custom HTML element 'alita-health.ai'
+  // Create a custom HTML element 'promptly-app-embed'
   class EmbedAgent extends HTMLElement {
     constructor() {
       super();
