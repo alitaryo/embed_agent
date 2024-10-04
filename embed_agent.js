@@ -18,16 +18,18 @@
         `${this.getAttribute("host") || "https://app.alitahealth.ai/"}/agent/${AppId}`  
       );  
       iframe.setAttribute("width", this.getAttribute("width") || "100%");  
-      iframe.setAttribute("height", this.getAttribute("height") || "80vh");  
+      iframe.setAttribute("height", this.getAttribute("height") || "700");  
       iframe.setAttribute("scrolling", this.getAttribute("scrolling") || "no");  
       iframe.setAttribute("frameborder", this.getAttribute("frameborder") || "0");  
-      iframe.setAttribute("allow", "clipboard-read; clipboard-write");  
+      iframe.setAttribute("allow", "clipboard-read; clipboard-write");
 
       if (chatBubble) {  
         iframe.style.position = 'fixed';  
         iframe.style.bottom = '0px';  
         iframe.style.right = '0';  
-        iframe.style.zIndex = '1000';  
+        iframe.style.zIndex = '1000';
+        iframe.style.height = 'auto';
+        iframe.style.width = 'auto';
       }  
 
       if (minWidth) {  
