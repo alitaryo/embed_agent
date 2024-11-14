@@ -24,7 +24,7 @@
         "src",  
         `${  
           this.getAttribute("host") || "https://app.alitahealth.ai/"  
-        }/agent/${AppId}?minimized=${isMinimized}`  
+        }/agent/${AppId}`  
       );  
       iframe.setAttribute("width", this.getAttribute("width") || "100%");  
       iframe.setAttribute("height", this.getAttribute("height") || "700");  
