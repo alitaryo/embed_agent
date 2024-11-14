@@ -1,5 +1,5 @@
 (function () {  
-  // Create a custom HTML element 'embed-agent'  
+  // Create a custom HTML element 'Alita-embed-agent'  
   class EmbedAgent extends HTMLElement {  
     constructor() {  
       super();  
