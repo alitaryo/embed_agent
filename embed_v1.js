@@ -53,8 +53,13 @@
 
       // Add a listener to the iframe to listen for messages  
       window.addEventListener("message", (event) => {  
-        // Check the origin to ensure message is from a trusted source  
-        if (event.origin === "https://app.alitahealth.ai") {  
+        // List of trusted origins  
+        const trustedOrigins = [  
+          "https://app.alitahealth.ai",  
+          "http://localhost:3000"  
+        ];  
+        
+        if (trustedOrigins.includes(event.origin)) {  
           console.log("Message received:", event.data);  
 
           const adjustIframeSize = (width, height) => {  
