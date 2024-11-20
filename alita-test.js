@@ -54,12 +54,12 @@
       // Add a listener to the iframe to listen for messages  
       window.addEventListener("message", (event) => {  
         // List of trusted origins  
-        const trustedOrigins = [  
-          "https://app.alitahealth.ai",  
-          "http://localhost:3000"  
-        ];  
+        // const trustedOrigins = [  
+        //   "https://app.alitahealth.ai",  
+        //   "http://localhost:3000"  
+        // ];  
         
-        if (trustedOrigins.includes(event.origin)) {  
+        // if (trustedOrigins.includes(event.origin)) {  
           console.log("Message received:", event.data);  
 
           const adjustIframeSize = (width, height) => {  
@@ -93,9 +93,9 @@
             adjustIframeSize(event.data.width, event.data.height);  
             localStorage.setItem("agentMinimized", "true");  
           }  
-        } else {  
-          console.warn("Untrusted origin:", event.origin);  
-        }  
+        // } else {  
+        //   console.warn("Untrusted origin:", event.origin);  
+        // }  
       });  
     }  
   }  
