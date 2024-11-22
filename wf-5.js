@@ -31,12 +31,10 @@
       iframe.setAttribute("allow", "clipboard-read; clipboard-write");
       // Handle chat bubble styling or provided styling  
       if (chatBubble) {
-        iframe.style.position = "fixed";
-        iframe.style.bottom = "0px";
-        iframe.style.right = "0";
-        iframe.style.zIndex = "1000";
-        iframe.style.height = "auto";
-        iframe.style.width = "auto";
+        iframe.setAttribute(
+          "style",
+          "position: fixed; bottom: 0; right: 0; z-index: 1000; height: auto; width: auto;"
+        );
       }
       if (this.getAttribute("style")) {
         iframe.setAttribute("style", this.getAttribute("style"));
