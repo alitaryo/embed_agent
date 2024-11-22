@@ -63,10 +63,13 @@
           // Handle different types of messages  
           if (event.data.type === "alita-embed-open" && event.data.width && event.data.height) {  
             iframe.style.width = event.data.width;  
-            iframe.style.height = event.data.height;  
+            iframe.style.height = event.data.height;
+
+            console.log(event.data.width)
 
             if (minWidth) {
               iframe.style.width = minWidth + "px";
+              console.log(minWidth)
             }
 
             if (minHeight) {
@@ -95,7 +98,8 @@
             iframe.width = event.data.width;  
             iframe.height = event.data.height;  
             iframe.style.width = (parseInt(event.data.width) + 20) + "px";  
-            iframe.style.height = (parseInt(event.data.height) + 20) + "px";  
+            iframe.style.height = (parseInt(event.data.height) + 20) + "px";
+            console.log((parseInt(event.data.width) + 20) + "px")
           }  
         } else {  
           console.warn("Untrusted origin:", event.origin);  
