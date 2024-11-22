@@ -77,8 +77,7 @@
             localStorage.setItem("agentMinimized", "false");
           } else if (event.data.type === "alita-embed-close") {  
             setTimeout(() => {  
-              iframe.style.width = "auto";
-              iframe.style.height = "auto";  
+              adjustIframeSize(event.data.width, event.data.height);  
             }, 300);  
 
             localStorage.setItem("agentMinimized", "true");  
