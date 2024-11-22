@@ -31,13 +31,14 @@
       );  
       iframe.setAttribute("allow", "clipboard-read; clipboard-write");
       // Handle chat bubble styling or provided styling  
-      if (chatBubble) {  
-        iframe.setAttribute(  
-          "style",  
-          "position: fixed; bottom: 0; right: 0; z-index: 1000; height: auto; width: auto;"  
-        );  
+      if (chatBubble) {
+        iframe.style.position = "fixed";
+        iframe.style.bottom = "0px";
+        iframe.style.right = "0";
+        iframe.style.zIndex = "1000";
+        iframe.style.height = "auto";
+        iframe.style.width = "auto";
       }
-
       if (this.getAttribute("style")) {
         iframe.setAttribute("style", this.getAttribute("style"));
       }
@@ -52,7 +53,7 @@
         ];
 
         if (trustedOrigins.includes(event.origin)) {
-          console.log("Message received:", event.data);  
+          console.log("Message received:", event.data);
           const adjustIframeSize = (width, height) => {
             let newWidth = width;
             let newHeight = height;
@@ -71,23 +72,12 @@
             iframe.style.width = newWidth + "px";
             iframe.style.height = newHeight + "px";
           };
-          // Handle different types of messages  
-          if (event.data.type === "alita-embed-open" && event.data.width && event.data.height) {  
+          if (event.data.type === "openApp") {
             adjustIframeSize(event.data.width, event.data.height);
             localStorage.setItem("agentMinimized", "false");
-          } else if (event.data.type === "alita-embed-close") {  
-            setTimeout(() => {  
-              adjustIframeSize(event.data.width, event.data.height);  
-            }, 300);  
-
-            localStorage.setItem("agentMinimized", "true");  
-
-          } else if (event.data.type === "alita-embed-resize" && event.data.width && event.data.height) {  
-            iframe.width = event.data.width;  
-            iframe.height = event.data.height;  
-            iframe.style.width = (parseInt(event.data.width) + 20) + "px";  
-            iframe.style.height = (parseInt(event.data.height) + 20) + "px";
-            console.log((parseInt(event.data.width) + 20) + "px")
+          } else if (event.data.type === "closeApp") {
+            adjustIframeSize(event.data.width, event.data.height);
+            localStorage.setItem("agentMinimized", "true");
           }
         } else {
           console.warn("Untrusted origin:", event.origin);
