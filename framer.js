@@ -110,7 +110,11 @@
             localStorage.setItem("scrollToAlita", "true");
             const isMinimized = localStorage.getItem("agentMinimized") === "true";
             const scrollToAlita = localStorage.getItem("scrollToAlita") === "true";
-            iframe.setAttribute("src", `${iframe.getAttribute("src")}&minimized=${isMinimized}&scroll=${scrollToAlita}`);
+            iframe.setAttribute(  
+              "src",  
+              `${this.getAttribute("host") || "https://app.alitahealth.ai/"  
+              }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`  
+            );
           } 
         } else {  
           console.warn("Untrusted origin:", event.origin);  
