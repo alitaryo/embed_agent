@@ -61,7 +61,7 @@
         // List of trusted origins  
         const trustedOrigins = [  
           "https://app.alitahealth.ai",
-          "https://staging.alitahealth.ai/"
+          "https://staging.alitahealth.ai/",
           "http://localhost:3000",  
           "https://framer.app",
         ];  
