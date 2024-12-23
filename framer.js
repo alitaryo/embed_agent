@@ -60,9 +60,10 @@
       window.addEventListener("message", (event) => {  
         // List of trusted origins  
         const trustedOrigins = [  
-          "https://app.alitahealth.ai",  
+          "https://app.alitahealth.ai",
+          "https://staging.alitahealth.ai/"
           "http://localhost:3000",  
-          "https://framer.app"
+          "https://framer.app",
         ];  
 
         // Event condition checks, with width and height data handling  
