@@ -25,13 +25,6 @@
         }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
       );
 
-      // Set the iframe attributes  
-      iframe.setAttribute("id", `agent-${AppId}`);
-      iframe.setAttribute(
-        "src",
-        `${this.getAttribute("host") || "https://app.alitahealth.ai/"
-        }/agent/${AppId}?minimized=${isMinimized}`
-      );
       iframe.setAttribute("width", this.getAttribute("width") || "100%");
       iframe.setAttribute("height", this.getAttribute("height") || "700");
       iframe.setAttribute("scrolling", this.getAttribute("scrolling") || "no");
