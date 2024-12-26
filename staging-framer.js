@@ -15,7 +15,10 @@
       const iframe = document.createElement("iframe");
 
       const isMinimized = localStorage.getItem("agentMinimized") === "true";
-      const scrollToAlita = localStorage.getItem("scrollToAlita") === "true" || false;
+
+      localStorage.setItem("scrollToAlita", "false");
+
+      const scrollToAlita = localStorage.getItem("scrollToAlita") === "true";
 
       // Set the iframe attributes   
       iframe.setAttribute("id", `agent-${AppId}`);
