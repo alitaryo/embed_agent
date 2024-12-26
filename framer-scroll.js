@@ -1,5 +1,5 @@
 (function () {
-  // Create a custom HTML element 'Alita-embed-agent'  
+  // Create a custom HTML element 'EmbedAgent'  
   class EmbedAgent extends HTMLElement {
     constructor() {
       super();
@@ -13,16 +13,16 @@
 
       // Create an iframe element  
       const iframe = document.createElement("iframe");
+      this.iframe = iframe; // Store iframe reference for later use  
 
       const isMinimized = localStorage.getItem("agentMinimized") === "true";
-      const scrollToAlita = localStorage.getItem("scrollToAlita") === "true";
+      const scrollToAlita = localStorage.getItem("scrollToAlita") === "true" || false;
 
       // Set the iframe attributes   
       iframe.setAttribute("id", `agent-${AppId}`);
       iframe.setAttribute(
         "src",
-        `${this.getAttribute("host") || "https://app.alitahealth.ai/"
-        }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
+        `${this.getAttribute("host") || "https://app.alitahealth.ai/"} /agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
       );
 
       console.log(iframe.src)
@@ -53,8 +53,6 @@
 
       // Add a listener to the iframe to listen for messages  
       window.addEventListener("message", (event) => {
-
-
         // List of trusted origins  
         const trustedOrigins = [
           "https://app.alitahealth.ai",
@@ -104,15 +102,19 @@
             iframe.style.width = (parseInt(event.data.width) + 20) + "px";
             iframe.style.height = (parseInt(event.data.height) + 20) + "px";
           }
+
           if (event.data.type === "scrollToAlita") {
+            // Set scrollToAlita to true  
             localStorage.setItem("scrollToAlita", "true");
             const isMinimized = localStorage.getItem("agentMinimized") === "true";
             const scrollToAlita = localStorage.getItem("scrollToAlita") === "true";
             iframe.setAttribute(
               "src",
-              `${this.getAttribute("host") || "https://app.alitahealth.ai/"
-              }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
+              `${this.getAttribute("host") || "https://app.alitahealth.ai/"} /agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
             );
+
+            // Reset scrollToAlita to false after setting  
+            localStorage.setItem("scrollToAlita", "false");
           }
         } else {
           console.warn("Untrusted origin:", event.origin);
