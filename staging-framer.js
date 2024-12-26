@@ -28,7 +28,7 @@
         }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
       );
 
-      console.log(iframe.src)
+      // console.log(iframe.src)
 
       iframe.setAttribute("width", this.getAttribute("width") || "100%");
       iframe.setAttribute("height", this.getAttribute("height") || "700");
@@ -116,6 +116,7 @@
               `${this.getAttribute("host") || "https://staging.alitahealth.ai/"
               }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
             );
+            console.log(iframe.src)
             localStorage.setItem("scrollToAlita", "false");
           }
         } else {
