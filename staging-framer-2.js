@@ -16,8 +16,6 @@
 
       const isMinimized = localStorage.getItem("agentMinimized") === "true";
 
-      localStorage.setItem("scrollToAlita", "false");
-
       const scrollToAlita = localStorage.getItem("scrollToAlita") === "true";
 
       // Set the iframe attributes   
@@ -71,24 +69,34 @@
           console.log("Message received:", event.data);
 
           // Handle different types of messages  
-          if (event.data.type === "alita-embed-open" && event.data.width && event.data.height) {
-            iframe.style.width = event.data.width;
-            iframe.style.height = event.data.height;
+          if (event.data.type === "alita-embed-open") {
+            if (event.data.width && event.data.height) {
+              iframe.style.width = event.data.width;
+              iframe.style.height = event.data.height;
 
-            if (minWidth) {
-              iframe.style.width = minWidth;
+              if (minWidth) {
+                iframe.style.width = minWidth;
+              }
+
+              if (minHeight) {
+                iframe.style.height = minHeight;
+              }
+
+              if (maxWidth) {
+                iframe.style.maxWidth = maxWidth;
+              }
+
+              if (maxHeight) {
+                iframe.style.maxHeight = maxHeight;
+              }
             }
 
-            if (minHeight) {
-              iframe.style.height = minHeight;
-            }
 
-            if (maxWidth) {
-              iframe.style.maxWidth = maxWidth;
-            }
-
-            if (maxHeight) {
-              iframe.style.maxHeight = maxHeight;
+            if (event.data.action === "scrollToAlita") {
+              console.log("scrolling to alita");
+              localStorage.setItem("scrollToAlita", "true");
+            } else {
+              localStorage.setItem("scrollToAlita", "false");
             }
 
             localStorage.setItem("agentMinimized", "false");
@@ -100,24 +108,13 @@
             }, 300);
 
             localStorage.setItem("agentMinimized", "true");
+            localStorage.setItem("scrollToAlita", "false");
 
           } else if (event.data.type === "alita-embed-resize" && event.data.width && event.data.height) {
             iframe.width = event.data.width;
             iframe.height = event.data.height;
             iframe.style.width = (parseInt(event.data.width) + 20) + "px";
             iframe.style.height = (parseInt(event.data.height) + 20) + "px";
-          }
-          if (event.data.type === "scrollToAlita") {
-            localStorage.setItem("scrollToAlita", "true");
-            const isMinimized = localStorage.getItem("agentMinimized") === "true";
-            const scrollToAlita = localStorage.getItem("scrollToAlita") === "true";
-            iframe.setAttribute(
-              "src",
-              `${this.getAttribute("host") || "https://staging.alitahealth.ai/"
-              }/agent/${AppId}?minimized=${isMinimized}&scroll=${scrollToAlita}`
-            );
-            console.log(iframe.src)
-            localStorage.setItem("scrollToAlita", "false");
           }
         } else {
           console.warn("Untrusted origin:", event.origin);
