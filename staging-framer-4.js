@@ -4,7 +4,7 @@
   function isOriginTrusted(origin) {
     console.log(`Checking origin: ${origin}`); // Log the origin to see what is being checked  
     const trustedPatterns = [
-      /https?:\/\/(\w+\.)?alitahealth\.ai/,
+      /https?:\/\/.*\.alitahealth\.ai/,
       /http:\/\/localhost(:\d+)?/,
       /https?:\/\/.*\.framer\.app/,
     ];
